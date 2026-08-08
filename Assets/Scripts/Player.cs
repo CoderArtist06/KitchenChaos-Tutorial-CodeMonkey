@@ -1,32 +1,49 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     // Movement tuning (editable in inspector)
     [SerializeField] private float moveSpeed = 7f;
 
-    // Input System action exposed in Inspector for binding
-    [SerializeField] private InputAction moveAction;
-
     // Current input value (x = left/right, y = foward/backward)
-    [SerializeField] private Vector2 inputVector;
 
     private void Start()
     {
-        // Enable the MoveAction so it starts reading input
-        moveAction.Enable();
+        
     }
 
     private void Update()
     {
-        // Read the 2D vector form the MoveAction (x: horizontal, y: vertical)
-        inputVector = moveAction.ReadValue<Vector2>();
+        OldInputSystem();
+    }
 
-        // Move the player forward/backward along local Z using the y component
-        transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed * inputVector.y);
-        // Move the player left/right along local X using the x component
-        transform.Translate(Vector3.right * Time.deltaTime * moveSpeed * inputVector.x);
+    private void OldInputSystem()
+    {
+        // Current input value (x = left/right, y = foward/backward)
+        Vector2 inputVector = new Vector2(0, 0);
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            inputVector.y = +1;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            inputVector.y = -1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            inputVector.x = -1;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            inputVector.x = +1;
+        }
+
+        inputVector = inputVector.normalized;
+
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+        transform.position += moveDir * moveSpeed * Time.deltaTime;
+
+        transform.forward = moveDir;
     }
 }
