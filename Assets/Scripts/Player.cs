@@ -6,14 +6,26 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotateSpeed = 10f;
 
+    [SerializeField] private GameInput gameInput;
+
     private bool isWalking;
 
     private void Update()
     {
-        OldInputSystem();
+        //OldInputSystem();
+
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+        transform.position += moveDir * moveSpeed * Time.deltaTime;
+
+        isWalking = moveDir != Vector3.zero;
+
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
 
-    private void OldInputSystem()
+    // This input system is good for prototyping
+    /* private void OldInputSystem()
     {
         // Current input value (x = left/right, y = foward/backward)
         Vector2 inputVector = new Vector2(0, 0);
@@ -43,7 +55,7 @@ public class Player : MonoBehaviour
         isWalking = moveDir != Vector3.zero;
 
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-    }
+    } */
 
     public bool IsWalking()
     {
