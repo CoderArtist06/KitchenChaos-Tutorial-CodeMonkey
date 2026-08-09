@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class GameInput : MonoBehaviour
 {
+
+    public event EventHandler OnInteractAction;
 
     private PlayerInputActions playerInputActions;
 
@@ -9,6 +12,13 @@ public class GameInput : MonoBehaviour
     {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
+
+        playerInputActions.Player.Interact.performed += InteractPerformed;
+    }
+
+    private void InteractPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnInteractAction?.Invoke(this, EventArgs.Empty); // If OnInteractAction is not null, invoke this
     }
 
     public Vector2 GetMovementVectorNormalized()
