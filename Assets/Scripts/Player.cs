@@ -5,15 +5,80 @@ public class Player : MonoBehaviour
     // Movement tuning (editable in inspector)
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotateSpeed = 10f;
+    [SerializeField] private float interactDistance = 2f;
 
     [SerializeField] private GameInput gameInput;
 
     private bool isWalking;
+    private Vector3 lastInteractDir;
 
     private void Update()
     {
         //OldInputSystem();
+        HandleMovement();
+        HandleInteractions();
+    }
 
+    // This input system is good for prototyping
+    /* private void OldInputSystem()
+    {
+        // Current input value (x = left/right, y = foward/backward)
+        Vector2 inputVector = new Vector2(0, 0);
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            inputVector.y = +1;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            inputVector.y = -1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            inputVector.x = -1;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            inputVector.x = +1;
+        }
+
+        inputVector = inputVector.normalized;
+
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+        transform.position += moveDir * moveSpeed * Time.deltaTime;
+
+        isWalking = moveDir != Vector3.zero;
+
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+    } */
+
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
+
+    private void HandleInteractions()
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero)
+        {
+            lastInteractDir = moveDir;
+        }
+
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit,interactDistance) == true)
+        {
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter) == true)
+            {
+                // Has ClearCounter
+                clearCounter.Interact();
+            }
+        }
+    }
+
+    private void HandleMovement()
+    {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
@@ -61,43 +126,5 @@ public class Player : MonoBehaviour
         isWalking = moveDir != Vector3.zero;
 
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-    }
-
-    // This input system is good for prototyping
-    /* private void OldInputSystem()
-    {
-        // Current input value (x = left/right, y = foward/backward)
-        Vector2 inputVector = new Vector2(0, 0);
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            inputVector.y = +1;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            inputVector.y = -1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            inputVector.x = -1;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            inputVector.x = +1;
-        }
-
-        inputVector = inputVector.normalized;
-
-        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
-
-        isWalking = moveDir != Vector3.zero;
-
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-    } */
-
-    public bool IsWalking()
-    {
-        return isWalking;
     }
 }
