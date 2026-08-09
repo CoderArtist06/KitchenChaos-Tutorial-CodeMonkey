@@ -937,10 +937,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd526fadc36956245af06dd121fcb335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  gameInput: {fileID: 411048816}
   moveSpeed: 7
   rotateSpeed: 15
   interactDistance: 2
-  gameInput: {fileID: 411048816}
+  countersLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &2130238766
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private GameInput gameInput;
+    
     // Movement tuning (editable in inspector)
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float interactDistance = 2f;
-
-    [SerializeField] private GameInput gameInput;
+    [SerializeField] private LayerMask countersLayerMask;
 
     private bool isWalking;
     private Vector3 lastInteractDir;
@@ -67,7 +68,7 @@ public class Player : MonoBehaviour
             lastInteractDir = moveDir;
         }
 
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit,interactDistance) == true)
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit,interactDistance, countersLayerMask) == true)
         {
             if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter) == true)
             {
