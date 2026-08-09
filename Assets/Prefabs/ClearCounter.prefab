@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Selected
       objectReference: {fileID: 0}
+    - target: {fileID: 4589716710238282922, guid: 0004cb1e11ad014419b943c7da960724, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4589716710238282923, guid: 0004cb1e11ad014419b943c7da960724, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.01
@@ -174,6 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe91a90e197cd584d9e4521a00d90423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectedCounterVisual
+  clearCounter: {fileID: 1026447178035755600}
+  visualGameObject: {fileID: 4922385394552563430}
+--- !u!1 &4922385394552563430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8489276541531669327, guid: 0004cb1e11ad014419b943c7da960724, type: 3}
+  m_PrefabInstance: {fileID: 3566898625922278825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7886826110255196834
 PrefabInstance:
   m_ObjectHideFlags: 0

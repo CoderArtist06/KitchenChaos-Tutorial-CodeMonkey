@@ -1,8 +1,18 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    public static Player Instance { get; private set; }
+
     [SerializeField] private GameInput gameInput;
+
+    public event EventHandler<OnSelectedCounterChangedEventArgs> onSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
+        public ClearCounter selectedCounter { get; set; }
+    }
     
     // Movement tuning (editable in inspector)
     [SerializeField] private float moveSpeed = 7f;
@@ -13,6 +23,15 @@ public class Player : MonoBehaviour
     private bool isWalking;
     private Vector3 lastInteractDir;
     private ClearCounter selectedCounter;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("There is more than one Player instance");
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -92,14 +111,20 @@ public class Player : MonoBehaviour
                 {
                     selectedCounter = clearCounter;
                     Debug.Log(selectedCounter);
+
+                    SetSelectedCounter(selectedCounter);
                 }
             } else
             {
                 selectedCounter = null;
+
+                SetSelectedCounter(selectedCounter);
             }
         } else
         {
             selectedCounter = null;
+
+            SetSelectedCounter(selectedCounter);
         }
     }
 
@@ -152,5 +177,15 @@ public class Player : MonoBehaviour
         isWalking = moveDir != Vector3.zero;
 
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+    }
+
+    private void SetSelectedCounter(ClearCounter selectedCounter)
+    {
+        this.selectedCounter = selectedCounter;
+
+        onSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs 
+        {
+            selectedCounter = selectedCounter
+        });
     }
 }
