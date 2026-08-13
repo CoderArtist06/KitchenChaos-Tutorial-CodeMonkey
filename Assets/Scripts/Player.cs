@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IKitchenObjectParent
 {
     // Singleton: permette ad altri script di accedere al Player con Player.Instance
     // invece di fare FindObjectOfType o passare riferimenti manualmente
@@ -24,10 +24,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float interactDistance = 2f;
     [SerializeField] private LayerMask countersLayerMask; // filtra il raycast: colpisce solo i counter, non tutto
+    [SerializeField] private Transform kitchenObjectHoldPoint; // Posso utilizzare sia il tipo Trasform che GameObject per ricevere l'oggetto Prefab
 
     private bool isWalking;
     private Vector3 lastInteractDir;      // memorizza l'ultima direzione valida, così puoi interagire anche da fermo guardando quella direzione
     private ClearCounter selectedCounter; // counter attualmente "puntato" dal player
+    private KitchenObject kitchenObject;
 
     private void Awake()
     {
@@ -52,7 +54,7 @@ public class Player : MonoBehaviour
     {
         if (selectedCounter != null)
         {
-            selectedCounter.Interact();
+            selectedCounter.Interact(this);
         }
     }
 
@@ -207,5 +209,30 @@ public class Player : MonoBehaviour
         {
             selectedCounter = selectedCounter
         });
+    }
+
+    public Transform GetKitchenObjectFollowTransform()
+    {
+        return kitchenObjectHoldPoint;
+    }
+
+    public void SetKitchenObject(KitchenObject kitchenObject)
+    {
+        this.kitchenObject = kitchenObject;
+    }
+
+    public KitchenObject GetKitchenObject()
+    {
+        return kitchenObject;
+    }
+
+    public void ClearKitchenObject()
+    {
+        kitchenObject = null;
+    }
+
+    public bool HasKitchenObject()
+    {
+        return kitchenObject != null;
     }
 }

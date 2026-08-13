@@ -2,38 +2,26 @@ using NUnit.Framework.Internal;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour
+public class ClearCounter : MonoBehaviour, IKitchenObjectParent
 {
 
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
     [SerializeField] private Transform counterTopPoint; // Posso utilizzare sia il tipo Trasform che GameObject per ricevere l'oggetto Prefab
-    [SerializeField] private ClearCounter secondClearCounter;
-    [SerializeField] private bool testing;
 
     private KitchenObject kitchenObject;
 
-    private void Update()
-    {
-        if (testing && Input.GetKeyDown(KeyCode.T))
-        {
-            if (kitchenObject != null)
-            {
-                kitchenObject.SetClearCounter(secondClearCounter);
-                //Debug.Log(kitchenObject.GetClearCounter());
-            }
-        }
-    }
-
-    public void Interact()
+    public void Interact(Player player)
     {
         //Debug.Log("Interact");
         if (kitchenObject == null)
         {
             Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, counterTopPoint);
-            kitchenObjectTransform.GetComponent<KitchenObject>().SetClearCounter(this);
+            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
         } else
         {
-            Debug.Log(kitchenObject.GetClearCounter());
+            // Give the object to the player
+            kitchenObject.SetKitchenObjectParent(player);
+            //Debug.Log(kitchenObject.GetClearCounter());
         }
     }
 
