@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameInput : MonoBehaviour
     //   gameInput.OnInteractAction += GameInput_OnInteractAction;
     // Uso EventHandler "semplice" (non generico) perché qui non servono dati extra da passare
     public event EventHandler OnInteractAction;
+    public event EventHandler OnInteractAlternateAction;
 
     // Riferimento alle Input Actions generate dal New Input System
     private PlayerInputActions playerInputActions;
@@ -21,6 +23,12 @@ public class GameInput : MonoBehaviour
         // ISCRIZIONE all'evento nativo del New Input System: "performed" scatta
         // quando l'azione Interact viene eseguita (es. tasto premuto una volta)
         playerInputActions.Player.Interact.performed += InteractPerformed;
+        playerInputActions.Player.InteractAlternate.performed += InteractAlternatePerformed;
+    }
+
+    private void InteractAlternatePerformed(InputAction.CallbackContext obj)
+    {
+        OnInteractAlternateAction?.Invoke(this, EventArgs.Empty);
     }
 
     // Handler chiamato dal New Input System quando Interact scatta.
@@ -28,7 +36,7 @@ public class GameInput : MonoBehaviour
     // ci limitiamo a "rilanciare" l'informazione tramite il nostro evento OnInteractAction.
     // Questo è il punto chiave del disaccoppiamento: GameInput sa leggere l'input,
     // ma non sa (e non deve sapere) cosa fare quando l'utente interagisce
-    private void InteractPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void InteractPerformed(InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty); // Se OnInteractAction ha almeno un iscritto, lo invoca
     }

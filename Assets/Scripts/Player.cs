@@ -46,6 +46,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         // ISCRIZIONE a un evento esterno: quando GameInput rileva il tasto "interagisci",
         // viene chiamato automaticamente GameInput_OnInteractAction qui sotto
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
     }
 
     // Handler chiamato dall'evento di GameInput. La firma (object sender, EventArgs e)
@@ -55,6 +56,14 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         if (selectedCounter != null)
         {
             selectedCounter.Interact(this);
+        }
+    }
+
+    private void GameInput_OnInteractAlternateAction(object sender, System.EventArgs e)
+    {
+        if (selectedCounter != null)
+        {
+            selectedCounter.InteractAlternate(this);
         }
     }
 
