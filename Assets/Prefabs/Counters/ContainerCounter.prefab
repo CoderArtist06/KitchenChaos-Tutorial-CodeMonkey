@@ -55,8 +55,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4589716710238282922, guid: 9a9137fa2b035d34e881701d2c178192, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6292979500302658563}
   m_SourcePrefab: {fileID: 100100000, guid: 9a9137fa2b035d34e881701d2c178192, type: 3}
+--- !u!1 &6076665305811593718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4589716710238282922, guid: 9a9137fa2b035d34e881701d2c178192, type: 3}
+  m_PrefabInstance: {fileID: 7774714759780912476}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6292979500302658563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6076665305811593718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded6d475593231c46969a444ce090ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ContainerCounterVisual
+  cointainerCounter: {fileID: 4694424002733744762}
 --- !u!4 &6076665305811593719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4589716710238282923, guid: 9a9137fa2b035d34e881701d2c178192, type: 3}
@@ -307,8 +328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4de578366c98d147b391f09292e9b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ContainerCounter
-  kitchenObjectSO: {fileID: 11400000, guid: 55ba28f97ccdd1c478bb5b5fa10af1e4, type: 2}
   counterTopPoint: {fileID: 4173130089528513411}
+  kitchenObjectSO: {fileID: 11400000, guid: 55ba28f97ccdd1c478bb5b5fa10af1e4, type: 2}
 --- !u!4 &4051038588528512224 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5435420774622578339, guid: d311e9aa788e87f4297a730349073405, type: 3}
