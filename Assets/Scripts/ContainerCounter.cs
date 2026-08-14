@@ -1,8 +1,6 @@
-using NUnit.Framework.Internal;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class ClearCounter : BaseCounter, IKitchenObjectParent
+public class ContainerCounter : BaseCounter, IKitchenObjectParent
 {
 
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
@@ -21,7 +19,6 @@ public class ClearCounter : BaseCounter, IKitchenObjectParent
         {
             // Give the object to the player
             kitchenObject.SetKitchenObjectParent(player);
-            //Debug.Log(kitchenObject.GetClearCounter());
         }
     }
 
@@ -49,4 +46,4 @@ public class ClearCounter : BaseCounter, IKitchenObjectParent
     {
         return kitchenObject != null;
     }
-} 
+}

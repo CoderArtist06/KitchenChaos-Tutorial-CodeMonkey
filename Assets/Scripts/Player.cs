@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     // Classe custom per portare dati extra insieme all'evento (qui: quale counter)
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounter { get; set; }
+        public BaseCounter selectedCounter { get; set; }
     }
     
     // Movement tuning (editabile da inspector)
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private bool isWalking;
     private Vector3 lastInteractDir;      // memorizza l'ultima direzione valida, così puoi interagire anche da fermo guardando quella direzione
-    private ClearCounter selectedCounter; // counter attualmente "puntato" dal player
+    private BaseCounter selectedCounter; // counter attualmente "puntato" dal player
     private KitchenObject kitchenObject;
 
     private void Awake()
@@ -120,13 +120,13 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit,interactDistance, countersLayerMask) == true)
         {
-            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter) == true)
+            if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter) == true)
             {
                 // Il raycast ha colpito un ClearCounter
                 //clearCounter.Interact(); // vecchia chiamata diretta, sostituita dal sistema evento-based tramite GameInput_OnInteractAction
-                if (clearCounter != selectedCounter)
+                if (baseCounter != selectedCounter)
                 {
-                    selectedCounter = clearCounter;
+                    selectedCounter = baseCounter;
                     Debug.Log(selectedCounter);
 
                     SetSelectedCounter(selectedCounter);
@@ -201,7 +201,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     // Aggiorna il counter selezionato e AVVISA chi è iscritto (es. UI) tramite l'evento.
     // Questo è il punto in cui la "campana" viene suonata (?.Invoke)
-    private void SetSelectedCounter(ClearCounter selectedCounter)
+    private void SetSelectedCounter(BaseCounter selectedCounter)
     {
         this.selectedCounter = selectedCounter;
 

@@ -8,9 +8,9 @@ public class SelectedCounterVisual : MonoBehaviour
 {
     // Riferimento al counter "proprietario" di questo visual, serve per confrontarlo
     // con il counter selezionato che arriva dall'evento
-    [SerializeField] private ClearCounter clearCounter;
+    [SerializeField] private BaseCounter baseCounter;
     // Il GameObject grafico da accendere/spegnere (es. un outline/highlight)
-    [SerializeField] private GameObject visualGameObject;
+    [SerializeField] private GameObject[] visualGameObjectArray;
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class SelectedCounterVisual : MonoBehaviour
     // e lo confronta con il proprio. Solo se coincidono si accende il visual
     private void Player_OnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
     {
-        if (e.selectedCounter == clearCounter)
+        if (e.selectedCounter == baseCounter)
         {
             Show();
         } else
@@ -35,11 +35,17 @@ public class SelectedCounterVisual : MonoBehaviour
 
     private void Show()
     {
-        visualGameObject.SetActive(true);
+        foreach(GameObject visualGameObject in visualGameObjectArray)
+        {
+            visualGameObject.SetActive(true);
+        }
     }
 
     private void Hide()
     {
-        visualGameObject.SetActive(false);
+        foreach(GameObject visualGameObject in visualGameObjectArray)
+        {
+            visualGameObject.SetActive(false);
+        }
     }
 }
