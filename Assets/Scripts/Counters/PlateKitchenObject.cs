@@ -38,8 +38,13 @@ public class PlateKitchenObject : KitchenObject
             {
                 kitchenObjectSO = kitchenObjectSO
             });
-            
+
             return true;
         }
+    }
+
+    public List<KitchenObjectSO> GetKitchenObjectSOList()
+    {
+        return kitchenObjectSOList;
     }
 }
