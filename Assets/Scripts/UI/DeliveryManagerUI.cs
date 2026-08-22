@@ -18,12 +18,12 @@ public class DeliveryManagerUI : MonoBehaviour
         UpdateVisual();
     }
 
-    private void DeliveryManager_OnRecipeSpawned(object senderm, System.EventArgs e)
+    private void DeliveryManager_OnRecipeSpawned(object sender, System.EventArgs e)
     {
         UpdateVisual();
     }
 
-    private void DeliveryManager_OnRecipeCompleted(object senderm, System.EventArgs e)
+    private void DeliveryManager_OnRecipeCompleted(object sender, System.EventArgs e)
     {
         UpdateVisual();
     }

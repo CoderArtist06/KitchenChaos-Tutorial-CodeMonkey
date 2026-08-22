@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     // EVENTO: si "attiva" ogni volta che cambia il counter selezionato dal player.
     // Chi vuole reagire (es. UI che mostra un'icona sopra il counter) si iscrive con +=
+    public event EventHandler OnPickedSomething;
     public event EventHandler<OnSelectedCounterChangedEventArgs> onSelectedCounterChanged;
     
     // Classe custom per portare dati extra insieme all'evento (qui: quale counter)
@@ -228,6 +229,11 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+
+        if (kitchenObject != null)
+        {
+            OnPickedSomething?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public KitchenObject GetKitchenObject()
