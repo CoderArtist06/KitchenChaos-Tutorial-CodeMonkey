@@ -58,7 +58,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                         KitchenObject.SpawnKitchenObject(fryingRecipeSO.output, this);
 
-                        Debug.Log("Obj fried");
+                        //Debug.Log("Obj fried");
                         
                         state = State.Fried;
                         burningTimer = 0f;
@@ -85,7 +85,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
                         KitchenObject.SpawnKitchenObject(burningRecipeSO.output, this);
 
-                        Debug.Log("Obj burned");
+                        //Debug.Log("Obj burned");
 
                         state = State.Burned;
 
@@ -103,7 +103,7 @@ public class StoveCounter : BaseCounter, IHasProgress
                 case State.Burned:
                     break;
             }
-            Debug.Log(state);
+            //Debug.Log(state);
         }
     }
 

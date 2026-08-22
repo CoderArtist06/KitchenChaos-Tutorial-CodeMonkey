@@ -136,7 +136,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
                 if (baseCounter != selectedCounter)
                 {
                     selectedCounter = baseCounter;
-                    Debug.Log(selectedCounter);
+                    //Debug.Log(selectedCounter);
 
                     SetSelectedCounter(selectedCounter);
                 }
