@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
+    public static GameInput Instance { get; private set; }
 
     // EVENTO: si attiva quando il tasto "interagisci" viene premuto.
     // Player.cs si iscrive a questo nello Start() con:
@@ -11,12 +12,15 @@ public class GameInput : MonoBehaviour
     // Uso EventHandler "semplice" (non generico) perché qui non servono dati extra da passare
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
+    public event EventHandler OnPauseAction;
 
     // Riferimento alle Input Actions generate dal New Input System
     private PlayerInputActions playerInputActions;
 
     private void Awake()
     {
+        Instance = this;
+
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable(); // attiva la action map "Player" (serve altrimenti gli input non vengono letti)
 
@@ -24,6 +28,12 @@ public class GameInput : MonoBehaviour
         // quando l'azione Interact viene eseguita (es. tasto premuto una volta)
         playerInputActions.Player.Interact.performed += InteractPerformed;
         playerInputActions.Player.InteractAlternate.performed += InteractAlternatePerformed;
+        playerInputActions.Player.Pause.performed += PausePerformed;
+    }
+
+    private void PausePerformed(InputAction.CallbackContext obj)
+    {
+        OnPauseAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void InteractAlternatePerformed(InputAction.CallbackContext obj)
