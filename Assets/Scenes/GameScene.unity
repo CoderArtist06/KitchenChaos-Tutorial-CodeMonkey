@@ -12594,7 +12594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1844042764}
   m_Layer: 5
-  m_Name: KeyAlternateInteract
+  m_Name: KeyInteractAlternate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
