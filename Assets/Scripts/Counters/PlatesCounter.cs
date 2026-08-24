@@ -20,7 +20,7 @@ public class PlatesCounter : BaseCounter
         {
             spawnPlateTimer = 0f;
 
-            if(platesSpawnedAmout < platesSpawnedAmoutMax)
+            if(GameManager.Instance.IsGamePlaying() && platesSpawnedAmout < platesSpawnedAmoutMax)
             {
                 platesSpawnedAmout ++;
 
