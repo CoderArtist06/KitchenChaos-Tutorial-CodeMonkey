@@ -5889,6 +5889,8 @@ GameObject:
   m_Component:
   - component: {fileID: 895148305}
   - component: {fileID: 895148306}
+  - component: {fileID: 895148307}
+  - component: {fileID: 895148308}
   m_Layer: 5
   m_Name: GameStartCountdownUI
   m_TagString: Untagged
@@ -5906,7 +5908,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1258569482}
   m_Father: {fileID: 222022019}
@@ -5929,6 +5931,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStartCountdownUI
   countdownText: {fileID: 1258569483}
+--- !u!95 &895148307
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895148304}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41c3429365660d94680e84dc95cbdccd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &895148308
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895148304}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!4 &927212665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5848801784402889657, guid: 5d9846afe8fef7947a32bf4bf71f2ab1, type: 3}
@@ -10033,7 +10069,7 @@ MonoBehaviour:
   keyMoveLeftText: {fileID: 440979689}
   keyMoveRightText: {fileID: 330675545}
   keyInteractText: {fileID: 311858641}
-  keyAlternateInteractText: {fileID: 52071311}
+  keyInteractAlternateText: {fileID: 52071311}
   keyPauseText: {fileID: 852209472}
   keyGamepadMoveText: {fileID: 2087212856}
   keyGamepadInteractText: {fileID: 1463238462}
