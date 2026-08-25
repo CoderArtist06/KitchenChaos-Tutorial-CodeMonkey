@@ -13,7 +13,7 @@ public class GameStartCountdownUI : MonoBehaviour
 
     private void Awake()
     {
-        animator = gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
